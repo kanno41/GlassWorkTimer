@@ -28,6 +28,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import java.lang.Runnable;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Activity showing the options menu.
@@ -43,6 +44,7 @@ public class MenuActivity extends Activity {
     private boolean mAttachedToWindow;
     private boolean mOptionsMenuOpen;
     private boolean mSettingTimer;
+    
 
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
@@ -97,6 +99,7 @@ public class MenuActivity extends Activity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+    	mTimer.setDurationMillis(TimeUnit.MINUTES.toMillis(50));
         final boolean timeSet = mTimer.getDurationMillis() != 0;
 
         setOptionsMenuGroupState(menu, R.id.no_time_set, !timeSet);

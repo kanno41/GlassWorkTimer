@@ -46,6 +46,9 @@ public class TimerView extends FrameLayout {
     private static final int MAX_STREAMS = 1;
     // Visible for testing.
     static final long DELAY_MILLIS = 1000;
+    
+    private static final long WORK_MILLIS = TimeUnit.MINUTES.toMillis(50);
+    private static final long REST_MILLIS = TimeUnit.MINUTES.toMillis(10);
 
     private final SoundPool mSoundPool;
     private final int mTimerFinishedSoundId;
@@ -99,6 +102,8 @@ public class TimerView extends FrameLayout {
     private boolean mStarted;
     private boolean mRunning;
     private boolean mRedText;
+    
+    private boolean mWorkTime;
 
     private ChangeListener mChangeListener;
 
@@ -111,7 +116,7 @@ public class TimerView extends FrameLayout {
     }
 
     public TimerView(Context context, AttributeSet attrs, int style) {
-        this(context, attrs, style, new Timer());
+        this(context, attrs, style, new Timer(WORK_MILLIS));
     }
 
     public TimerView(Context context, AttributeSet attrs, int style, Timer timer) {
@@ -188,6 +193,17 @@ public class TimerView extends FrameLayout {
         if (mRedText) {
             // Sync the sound with the red text.
             playSound();
+            if(!mWorkTime)
+            {
+            	mTimer.setDurationMillis(REST_MILLIS);
+            	mTimer.start();
+            	mWorkTime = true;
+            }
+            else
+            {
+            	mTimer.setDurationMillis(WORK_MILLIS);
+            	mWorkTime = false;
+            }
         }
 
         updateText(remainingTimeMillis, mRedText ? mRedColor : mWhiteColor);

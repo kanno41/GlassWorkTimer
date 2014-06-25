@@ -195,12 +195,14 @@ public class TimerView extends FrameLayout {
             playSound();
             if(!mWorkTime)
             {
+            	mTimer.reset();
             	mTimer.setDurationMillis(REST_MILLIS);
             	mTimer.start();
             	mWorkTime = true;
             }
             else
             {
+            	mTimer.reset();
             	mTimer.setDurationMillis(WORK_MILLIS);
             	mWorkTime = false;
             }

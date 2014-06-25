@@ -99,7 +99,7 @@ public class MenuActivity extends Activity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-    	mTimer.setDurationMillis(TimeUnit.MINUTES.toMillis(50));
+    	//mTimer.setDurationMillis(TimeUnit.MINUTES.toMillis(50));
         final boolean timeSet = mTimer.getDurationMillis() != 0;
 
         setOptionsMenuGroupState(menu, R.id.no_time_set, !timeSet);
